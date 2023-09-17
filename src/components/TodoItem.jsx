@@ -22,8 +22,10 @@ const TodoItem = ({
   };
 
   useEffect(() => {
-    isTodoCompleted().then((data) => setIsCompleted(data));
-  }, []);
+    isTodoCompleted(todo.id).then((data) => {
+      setIsCompleted(data);
+    });
+  }, [todo.id]);
 
   return (
     <Flex

@@ -43,3 +43,17 @@ export const deleteTodo = async (id) => {
 
   await axios.post("http://localhost:3001/data", { todos: updatedData });
 };
+
+export const countUncompletedTodo = async () => {
+  const { data } = await axios.get("http://localhost:3001/data");
+
+  return data.todos.filter((todo) => !todo.isCompleted).length;
+};
+
+export const clearAllCompletedTodos = async () => {
+  const { data } = await axios.get("http://localhost:3001/data");
+
+  const updatedData = data.todos.filter((todo) => !todo.isCompleted);
+
+  await axios.put("http://localhost:3001/data", { todos: updatedData });
+};

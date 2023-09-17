@@ -7,13 +7,22 @@ import lightBackgroundImage from "./assets/bg-desktop-light.jpg";
 import darkBackgroundImage from "./assets/bg-desktop-dark.jpg";
 import Header from "./components/Header";
 import InputButton from "./components/InputButton";
-import { addTodo, deleteTodo, fetchTodos, markTodoCompleted } from "./actions";
+import {
+  addTodo,
+  clearAllCompletedTodos,
+  countUncompletedTodo,
+  deleteTodo,
+  fetchTodos,
+  markTodoCompleted,
+} from "./actions";
 import TodoList from "./components/TodoList";
+import { StatusBar } from "./components/StatusBar";
 
 function App() {
   const { colorMode, toggleColorMode } = useColorMode();
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState([]);
+  const [itemLeft, setItemLeft] = useState(0);
 
   const handleAddTodo = async (e) => {
     if (todo && e.keyCode === 13) {
@@ -31,6 +40,7 @@ function App() {
 
   const handleCompletedTodo = async (id) => {
     await markTodoCompleted(id);
+    countUncompletedTodo().then((count) => setItemLeft(count));
   };
 
   const handleDeleteTodo = async (id) => {
@@ -38,9 +48,18 @@ function App() {
     setTodos(await fetchTodos());
   };
 
+  const handleClearAllClick = async () => {
+    await clearAllCompletedTodos();
+    fetchTodos().then((data) => setTodos(data));
+  };
+
   useEffect(() => {
     fetchTodos().then((data) => setTodos(data));
   }, []);
+
+  useEffect(() => {
+    countUncompletedTodo().then((count) => setItemLeft(count));
+  }, [todos]);
 
   return (
     <>
@@ -51,7 +70,7 @@ function App() {
         backgroundSize={"cover"}
         h={"40vh"}
       >
-        <Box w="50%" p="4em 0" m="auto">
+        <Box w={{ base: "80%", md: "60%", lg: "40" }} p="4em 0" m="auto">
           <Header colorMode={colorMode} toggleColorMode={toggleColorMode} />
           <InputButton
             colorMode={colorMode}
@@ -67,20 +86,25 @@ function App() {
         background={"#242424"}
         position={"relative"}
       >
-        <Box
-          w={"50%"}
-          position={"absolute"}
-          top={"-10"}
-          left={{ lg: "23.2em", md: "15.2em", base: "11.2em" }}
-          borderRadius={"5px"}
-          background={colorMode === "light" ? "white" : "#1a202c"}
-        >
-          <Box maxH={"50vh"} overflowY={"auto"}>
-            <TodoList
-              todos={todos}
+        <Box minW={"100%"} m={"auto"} position={"absolute"} top={"-10"}>
+          <Box w={{ base: "80%", md: "60%", lg: "40" }} m={"auto"}>
+            <Box
+              maxH={"50vh"}
+              overflowY={"auto"}
+              borderTopRadius={"10px"}
+              backgroundColor={colorMode === "light" ? "white" : "#1a202c"}
+            >
+              <TodoList
+                todos={todos}
+                colorMode={colorMode}
+                handleCompletedTodo={handleCompletedTodo}
+                handleDeleteTodo={handleDeleteTodo}
+              />
+            </Box>
+            <StatusBar
               colorMode={colorMode}
-              handleCompletedTodo={handleCompletedTodo}
-              handleDeleteTodo={handleDeleteTodo}
+              itemLeft={itemLeft}
+              handleClearAllClick={handleClearAllClick}
             />
           </Box>
         </Box>
