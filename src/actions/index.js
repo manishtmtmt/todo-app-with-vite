@@ -57,3 +57,15 @@ export const clearAllCompletedTodos = async () => {
 
   await axios.put("http://localhost:3001/data", { todos: updatedData });
 };
+
+export const getActiveTodos = async () => {
+  const { data } = await axios.get("http://localhost:3001/data");
+
+  return data.todos.filter((todo) => !todo.isCompleted);
+};
+
+export const getCompletedTodos = async () => {
+  const { data } = await axios.get("http://localhost:3001/data");
+
+  return data.todos.filter((todo) => todo.isCompleted);
+};

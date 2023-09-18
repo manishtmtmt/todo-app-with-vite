@@ -13,6 +13,8 @@ import {
   countUncompletedTodo,
   deleteTodo,
   fetchTodos,
+  getActiveTodos,
+  getCompletedTodos,
   markTodoCompleted,
 } from "./actions";
 import TodoList from "./components/TodoList";
@@ -53,6 +55,18 @@ function App() {
     fetchTodos().then((data) => setTodos(data));
   };
 
+  const handleAllClick = async () => {
+    fetchTodos().then((data) => setTodos(data));
+  };
+
+  const handleActiveClick = async () => {
+    getActiveTodos().then((todos) => setTodos(todos));
+  };
+
+  const handleCompletedClick = async () => {
+    getCompletedTodos().then((todos) => setTodos(todos));
+  };
+
   useEffect(() => {
     fetchTodos().then((data) => setTodos(data));
   }, []);
@@ -70,7 +84,7 @@ function App() {
         backgroundSize={"cover"}
         h={"40vh"}
       >
-        <Box w={{ base: "80%", md: "60%", lg: "40" }} p="4em 0" m="auto">
+        <Box w={{ base: "80%", md: "60%", lg: "40%" }} p="4em 0" m="auto">
           <Header colorMode={colorMode} toggleColorMode={toggleColorMode} />
           <InputButton
             colorMode={colorMode}
@@ -87,7 +101,7 @@ function App() {
         position={"relative"}
       >
         <Box minW={"100%"} m={"auto"} position={"absolute"} top={"-10"}>
-          <Box w={{ base: "80%", md: "60%", lg: "40" }} m={"auto"}>
+          <Box w={{ base: "80%", md: "60%", lg: "40%" }} m={"auto"}>
             <Box
               maxH={"50vh"}
               overflowY={"auto"}
@@ -105,6 +119,9 @@ function App() {
               colorMode={colorMode}
               itemLeft={itemLeft}
               handleClearAllClick={handleClearAllClick}
+              handleAllClick={handleAllClick}
+              handleActiveClick={handleActiveClick}
+              handleCompletedClick={handleCompletedClick}
             />
           </Box>
         </Box>
