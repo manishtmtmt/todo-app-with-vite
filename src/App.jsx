@@ -113,6 +113,7 @@ function App() {
                 colorMode={colorMode}
                 handleCompletedTodo={handleCompletedTodo}
                 handleDeleteTodo={handleDeleteTodo}
+                setTodos={setTodos}
               />
             </Box>
             <StatusBar

@@ -69,3 +69,7 @@ export const getCompletedTodos = async () => {
 
   return data.todos.filter((todo) => todo.isCompleted);
 };
+
+export const updateReOrderedTodos = async (todos) => {
+  await axios.put("http://localhost:3001/data", { todos });
+};

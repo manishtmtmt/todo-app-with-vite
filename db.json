@@ -4,6 +4,16 @@
       {
         "id": "aacb9ed0-503b-4aa5-8f04-c3a369950156",
         "title": "Create a Todo list",
+        "isCompleted": true
+      },
+      {
+        "id": "98b4b2b2-8ee9-45e6-9f1c-697760639b98",
+        "title": "Implement DRAG & DROP Feature",
+        "isCompleted": true
+      },
+      {
+        "id": "24811bb6-c559-4c36-8599-256fe19c1af3",
+        "title": "LIKE | SHARE | SUBSCRIBE",
         "isCompleted": false
       }
     ]
