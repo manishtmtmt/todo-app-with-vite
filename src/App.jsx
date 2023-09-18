@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
-import { Box, useColorMode } from "@chakra-ui/react";
+import { Box, Flex, Text, useColorMode } from "@chakra-ui/react";
 import { v4 } from "uuid";
 
 import lightBackgroundImage from "./assets/bg-desktop-light.jpg";
@@ -125,6 +125,16 @@ function App() {
               handleCompletedClick={handleCompletedClick}
             />
           </Box>
+          <Flex
+            justifyContent={"center"}
+            alignItems={"center"}
+            color={"grey"}
+            fontWeight={"700"}
+            fontSize={"large"}
+            mt={"10"}
+          >
+            <Text>Drag & drop to reorder list</Text>
+          </Flex>
         </Box>
       </Box>
     </>
